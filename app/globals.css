@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* Design tokens. The three band colours are patch-cable colours:
+   they mean bass / mid / treble everywhere they appear. */
+:root {
+  --panel: #d3d5d2;
+  --panel-edge: #a9adaa;
+  --engrave: #22252a;
+  --stage: #15171a;
+  --bass: #e8743b;
+  --mid: #3ba7c9;
+  --treble: #c63d8e;
+  /* Derived shades for the brushed-metal look */
+  --panel-hi: #e4e6e3;
+  --panel-lo: #bfc2bf;
+  --engrave-soft: #4a4f57;
+}
+
+@theme inline {
+  --color-panel: var(--panel);
+  --color-panel-edge: var(--panel-edge);
+  --color-panel-hi: var(--panel-hi);
+  --color-panel-lo: var(--panel-lo);
+  --color-engrave: var(--engrave);
+  --color-engrave-soft: var(--engrave-soft);
+  --color-stage: var(--stage);
+  --color-bass: var(--bass);
+  --color-mid: var(--mid);
+  --color-treble: var(--treble);
+  --font-sans: var(--font-familjen), ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale (rem): 0.75 · 0.875 · 1 · 1.5 · 2.25 · 3.375 */
+  --text-label: 0.75rem;
+  --text-small: 0.875rem;
+  --text-body: 1rem;
+  --text-h3: 1.5rem;
+  --text-h2: 2.25rem;
+  --text-h1: 3.375rem;
+}
+
+html,
+body {
+  background: var(--stage);
+  color: var(--engrave);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Brushed aluminium: fine horizontal grain over the panel colour */
+.brushed {
+  background-color: var(--panel);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.07) 0px,
+      rgba(255, 255, 255, 0.07) 1px,
+      rgba(0, 0, 0, 0.025) 1px,
+      rgba(0, 0, 0, 0.025) 2px
+    ),
+    linear-gradient(180deg, var(--panel-hi), var(--panel) 40%, var(--panel-lo));
+}
+
+/* Engraved module header: thin rule with small label */
+.engraved {
+  font-size: var(--text-label);
+  letter-spacing: 0.02em;
+  color: var(--engrave);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--mid);
+  outline-offset: 2px;
+}
+
+/* ── Tweakpane skin: aluminium panel, engraved labels ─────────────────── */
+.flux-pane {
+  --tp-base-background-color: transparent;
+  --tp-base-shadow-color: transparent;
+  --tp-base-border-radius: 3px;
+  --tp-base-font-family: var(--font-familjen), ui-sans-serif, system-ui, sans-serif;
+  --tp-blade-unit-size: 24px;
+  --tp-blade-value-width: 150px;
+  --tp-container-background-color: rgba(34, 37, 42, 0.08);
+  --tp-container-background-color-active: rgba(34, 37, 42, 0.16);
+  --tp-container-background-color-focus: rgba(34, 37, 42, 0.14);
+  --tp-container-background-color-hover: rgba(34, 37, 42, 0.12);
+  --tp-container-foreground-color: var(--engrave);
+  --tp-groove-foreground-color: var(--panel-edge);
+  --tp-input-background-color: #c6c9c5;
+  --tp-input-background-color-active: #b9bcb8;
+  --tp-input-background-color-focus: #bec1bd;
+  --tp-input-background-color-hover: #bfc2be;
+  --tp-input-foreground-color: var(--engrave);
+  --tp-label-foreground-color: var(--engrave);
+  --tp-monitor-background-color: rgba(34, 37, 42, 0.08);
+  --tp-monitor-foreground-color: var(--engrave);
+  /* Tweakpane uses the button colours for dropdowns too */
+  --tp-button-background-color: #c6c9c5;
+  --tp-button-background-color-active: #b3b6b2;
+  --tp-button-background-color-focus: #bcbfbb;
+  --tp-button-background-color-hover: #bcbfbb;
+  --tp-button-foreground-color: var(--engrave);
+}
+
+.flux-pane .tp-lblv_l {
+  font-size: 0.75rem;
+}
+
+.flux-pane input {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Slider: engraved groove + dark knob (Tweakpane draws them with pseudo-elements) */
+.flux-pane .tp-sldv_k::before {
+  background-color: var(--panel-edge) !important;
+}
+.flux-pane .tp-sldv_k::after {
+  background-color: var(--engrave) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+.flux-pane .tp-sldv:hover .tp-sldv_k::after {
+  background-color: #3a3f47 !important;
+}
+
+/* Checkbox: visible box with an engraved border */
+.flux-pane .tp-ckbv_w {
+  background-color: var(--panel-hi) !important;
+  border: 1px solid var(--panel-edge);
+}
+.flux-pane .tp-ckbv_w svg path {
+  stroke: var(--engrave) !important;
+}
+
+/* Lock toggle injected into each Tweakpane row */
+.flux-lock {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  flex: none;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--engrave-soft);
+  opacity: 0.45;
+  cursor: pointer;
+}
+.flux-lock:hover {
+  opacity: 0.9;
+}
+.flux-lock[aria-pressed="true"] {
+  opacity: 1;
+  color: var(--engrave);
+  background: rgba(34, 37, 42, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

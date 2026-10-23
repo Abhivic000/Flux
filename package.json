@@ -1,0 +1,40 @@
+{
+  "name": "flux",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start -p 3002",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write \"**/*.{ts,tsx,mts,mjs,css,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mts,mjs,css,json}\""
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "p5": "^2.3.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tweakpane": "^4.0.5",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@tweakpane/core": "^2.0.5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.2",
+    "prettier": "^3.9.10",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^5.0.5"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "description": "A browser instrument for generative, audio-reactive art."
+}
